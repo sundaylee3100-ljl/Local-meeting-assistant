@@ -12,6 +12,18 @@ export const AI_PROVIDERS = [
     streaming: true,
   },
   {
+    id: "mimo",
+    curl: `curl https://token-plan-cn.xiaomimimo.com/v1/chat/completions \\
+  -H "Content-Type: application/json" \\
+  -H "api-key: {{API_KEY}}" \\
+  -d '{
+    "model": "{{MODEL}}",
+    "messages": [{"role": "system", "content": "{{SYSTEM_PROMPT}}"}, {"role": "user", "content": [{"type": "text", "text": "{{TEXT}}"}, {"type": "image_url", "image_url": {"url": "data:image/png;base64,{{IMAGE}}"}}]}]
+  }'`,
+    responseContentPath: "choices[0].message.content",
+    streaming: true,
+  },
+  {
     id: "claude",
     curl: `curl https://api.anthropic.com/v1/messages \\
   -H "x-api-key: {{API_KEY}}" \\
