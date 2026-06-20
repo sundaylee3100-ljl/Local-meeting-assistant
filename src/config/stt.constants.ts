@@ -1,5 +1,19 @@
 export const SPEECH_TO_TEXT_PROVIDERS = [
   {
+    id: "mimo-asr",
+    name: "Xiaomi MiMo ASR",
+    curl: `curl https://token-plan-cn.xiaomimimo.com/v1/chat/completions \\
+  -H "Content-Type: application/json" \\
+  -H "api-key: {{API_KEY}}" \\
+  -d '{
+    "model": "{{MODEL}}",
+    "messages": [{"role": "user", "content": [{"type": "input_audio", "input_audio": {"data": "data:audio/wav;base64,{{AUDIO}}"}}]}],
+    "asr_options": {"language": "zh"}
+  }'`,
+    responseContentPath: "choices[0].message.content",
+    streaming: false,
+  },
+  {
     id: "openai-whisper",
     name: "OpenAI Whisper",
     curl: `curl -X POST "https://api.openai.com/v1/audio/transcriptions" \\
